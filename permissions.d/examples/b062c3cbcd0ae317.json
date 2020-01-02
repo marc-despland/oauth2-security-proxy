@@ -1,0 +1,21 @@
+{
+    "permission": "b062c3cbcd0ae317",
+    "name": "request-path-not-regex",
+    "request": {
+        "headers": [
+            {
+                "name": "Fiware-Service",
+                "mandatory": true,
+                "value": "TEST",
+                "is_regex": false
+            }
+        ],
+        "query": [],
+        "method": "GET",
+        "path": {
+            "value": "/v2/types",
+            "is_regex": false
+        },
+        "body": {}
+    }
+}
