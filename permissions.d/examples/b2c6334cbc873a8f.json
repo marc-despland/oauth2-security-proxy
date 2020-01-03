@@ -16,6 +16,17 @@
             "value": "^/v2/.*",
             "is_regex": true
         },
-        "body": {}
+        "body": {
+            "is_mandatory": true,
+            "attributes":[{
+                "name": "id",
+                "is_mandatory" : true,
+                "check_type": true,
+                "type" : "Integer",
+                "check_value": true,
+                "value": "monid",
+                "is_regex": true 
+            }]
+        }
     }
 }

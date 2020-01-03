@@ -4,6 +4,16 @@ var Roles = require('./roles.js');
 
 var debug = false;
 
+var typesNGSI = {
+    "Text": "string",
+    "Integer": "number",
+    "Float": "number",
+    "Boolean": "boolean",
+    "DateTime": "string",
+    "geo:json": "object",
+    "StructuredValue": "object"
+}
+
 module.exports = class Permissions {
 
     constructor(folder, roles) {
@@ -165,6 +175,111 @@ module.exports = class Permissions {
              if (debug) console.log("\tcheckQuery something wrong append "+JSON.stringify(Error))
              return false;
          }*/
+    }
+    /*
+    "name": "id",
+                    "is_mandatory" : true,
+                    "check_type": true,
+                    "type" : "Integer",
+                    "check_value": true,
+                    "value": "monid",
+                    "is_regex": true 
+                    */
+
+    checkBody(request, permission) {
+        if (debug) console.log("\tcheckBody")
+        if (!permission.hasOwnProperty("body")) return true;
+        if (!permission.body.hasOwnProperty("is_mandatory")) return false;
+        if (!permission.body.hasOwnProperty("is_forbidden")) return false;
+        if ((request.data === undefined) || (request.data === "")) {
+            //no body
+            if (permission.body.is_mandatory) return false;
+        } else {
+            if (permission.body.is_forbidden) return false;
+            if (!permission.body.hasOwnProperty("attributes")) return true;
+            var length = permission.body.attributes.length;
+            if (length === undefined) return false;
+            var index = 0;
+            var forbidden = false;
+            while (!forbidden && index < length) {
+                var condition = permission.body.attributes[index];
+                if (!condition.hasOwnProperty("name")) forbidden = true;
+                if (!forbidden && !condition.hasOwnProperty("is_mandatory")) forbidden = true;
+                if (!forbidden && !condition.hasOwnProperty("is_forbidden")) forbidden = true;
+                if (!forbidden) {
+                    if (request.data.hasOwnProperty(condition.name)) {
+                        if (condition.is_forbidden) forbidden = true;
+                        if (!forbidden && !condition.hasOwnProperty("check_type")) forbidden = true;
+                        if (!forbidden && !condition.hasOwnProperty("check_value")) forbidden = true;
+                        if (!forbidden) {
+                            forbidden= ! this.checkAttributeType(request.data[condition.name], condition);
+                            if (!forbidden && condition.check_value) {
+                                if (!forbidden && !condition.hasOwnProperty("value")) forbidden = true;
+                                if (!forbidden && !condition.hasOwnProperty("is_regex")) forbidden = true;
+                                if (!forbidden) {
+                                    if ((typeof request.data[condition.name]==="object") && (request.data[condition.name].hasOwnProperty("value"))  && (request.data[condition.name].hasOwnProperty("type"))) {
+                                        if (condition.is_regex) {
+                                            if (typeof request.data[condition.name].value==="string") {
+                                                var regex = new RegExp(condition.value);
+                                                var matchs = regex.exec(request.data[condition.name].value);
+                                                forbidden = (matchs === null);
+                                            } else {
+                                                forbidden=true;
+                                            }
+                                        } else {
+                                            forbidden= (request.data[condition.name].value!==condition.value)
+                                        }
+                                    } else {
+                                        if (condition.is_regex) {
+                                            if (typeof request.data[condition.name]==="string") {
+                                                var regex = new RegExp(condition.value);
+                                                var matchs = regex.exec(request.data[condition.name]);
+                                                forbidden = (matchs === null);
+                                            } else {
+                                                forbidden=true;
+                                            }
+                                        } else {
+                                            forbidden= (request.data[condition.name]!==condition.value)
+                                        }
+                                    }
+                                }
+ 
+                            }
+                        }
+
+                    } else {
+                        if (condition.is_mandatory) forbidden = true;
+                    }
+                }
+                index++;
+            }
+            return !forbidden;
+        }
+    }
+
+
+    checkAttributeType(attribute, condition) {
+        if (condition.check_type === "none") return true;
+        if (condition.check_type === "standard") {
+            if (!condition.hasOwnProperty("type")) return false;
+            var type = typeof attribute;
+            var jsontype = typesNGSI[condition.type]
+            if ((type === "object") && (attribute.hasOwnProperty("value")) && (attribute.hasOwnProperty("type"))) {
+                return ((typeof attribute.value === jsontype) && (attribute.type === condition.type));
+            }
+            if (type === jsontype)  return true
+        }
+        if (condition.check_type === "custom") {
+            if (!condition.hasOwnProperty("type")) return false;
+            if (!condition.hasOwnProperty("derived")) return false;
+            var type = typeof attribute;
+            var jsontype = typesNGSI[condition.derived];
+            if ((type === "object") && (attribute.hasOwnProperty("value")) && (attribute.hasOwnProperty("type"))) {
+                return ((typeof attribute.value === jsontype) && (attribute.type === condition.type));
+            }
+            if (type === jsontype)  return true
+        }
+        return false;
     }
 
     readFolder(folder) {
