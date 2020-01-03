@@ -1,0 +1,46 @@
+{
+    "name": "mytest",
+    "permission": "mytest",
+    "request": {
+        "method": "GET",
+        "path": {
+            "value": "/v2/types",
+            "is_regex": false
+        },
+        "query": [
+            {
+                "name": "query",
+                "check_value": "no",
+                "presence": "mandatory"
+            }
+        ],
+        "headers": [
+            {
+                "name": "Fiware-Service",
+                "check_value": "no",
+                "presence": "mandatory"
+            }
+        ],
+        "body": {
+            "presence": "optional",
+            "id": [
+                {
+                    "name": "id",
+                    "presence": "mandatory",
+                    "check_type": "no",
+                    "check_value": "equals",
+                    "value": "Room2"
+                }
+            ],
+            "attributes": [
+                {
+                    "name": "temperature",
+                    "presence": "optional",
+                    "check_type": "no",
+                    "check_value": "equals",
+                    "value": "my data"
+                }
+            ]
+        }
+    }
+}
