@@ -23,6 +23,9 @@ module.exports = class Permissions {
 
     }
 
+    loadPermission(permid, permission) {
+        this.permissions[permid]=permission;
+    }
 
     authorizeRequest(request, roles) {
         if (debug) console.log("authorizeRequest roles" + JSON.stringify(roles));
@@ -55,6 +58,8 @@ module.exports = class Permissions {
                     if (debug) console.log("\tcheckPermissionRequest headers:" + !forbidden)
                     forbidden = forbidden || !this.checkQuery(request, permission.request)
                     if (debug) console.log("\tcheckPermissionRequest query:" + !forbidden)
+                    forbidden = forbidden || !this.checkBody(request.data, permission.request)
+                    if (debug) console.log("\tcheckPermissionRequest Body:" + !forbidden)
 
                     check = !forbidden;
                 } else {
@@ -71,14 +76,14 @@ module.exports = class Permissions {
 
     checkMethod(request, permission) {
         if (debug) console.log("\tcheckMethod")
-        if (!permission.hasOwnProperty("method")) return false;
+        if (!permission.hasOwnProperty("method")) return true;
         return (request.method === permission.method);
     }
 
 
     checkPath(request, permission) {
         if (debug) console.log("\tcheckPath")
-        if (!permission.hasOwnProperty("path")) return false;
+        if (!permission.hasOwnProperty("path")) return true;
         if (!permission.path.hasOwnProperty("value")) return false;
         if (!permission.path.hasOwnProperty("is_regex")) return false;
         if (permission.path.is_regex) {
@@ -92,7 +97,7 @@ module.exports = class Permissions {
     }
     checkHeaders(request, permission) {
         if (debug) console.log("\tcheckHeaders")
-        if (!permission.hasOwnProperty("headers")) return false;
+        if (!permission.hasOwnProperty("headers")) return true;
         //try {
         var length = permission.headers.length;
         if (length === undefined) return false;
@@ -101,14 +106,13 @@ module.exports = class Permissions {
         while (!forbidden && index < length) {
             if (!forbidden && !permission.headers[index].hasOwnProperty("name")) forbidden = true;
             if (!forbidden && !permission.headers[index].hasOwnProperty("check_value")) forbidden = true;
-            if (!forbidden && !permission.headers[index].hasOwnProperty("is_mandatory")) forbidden = true;
+            if (!forbidden && !permission.headers[index].hasOwnProperty("presence")) forbidden = true;
             if (!forbidden) {
                 if (request.headers.hasOwnProperty(permission.headers[index].name.toLowerCase())) {
-                    if (permission.headers[index].check_value) {
+                    if (permission.headers[index].check_value!=="no") {
                         if (!permission.headers[index].hasOwnProperty("value")) forbidden = true;
-                        if (!forbidden && !permission.headers[index].hasOwnProperty("is_regex")) forbidden = true;
                         if (!forbidden) {
-                            if (permission.headers[index].is_regex) {
+                            if (permission.headers[index].check_value=="regex") {
                                 var regex = new RegExp(permission.headers[index].value);
                                 var matchs = regex.exec(request.headers[permission.headers[index].name.toLowerCase()]);
                                 forbidden = (matchs === null);
@@ -118,7 +122,7 @@ module.exports = class Permissions {
                         }
                     }
                 } else {
-                    if (permission.headers[index].is_mandatory) forbidden = true;
+                    if (permission.headers[index].presence==="mandatory") forbidden = true;
                     if (debug) console.log("\tcheckHeaders header not found : " + !forbidden)
                 }
             }
@@ -133,7 +137,7 @@ module.exports = class Permissions {
 
     checkQuery(request, permission) {
         if (debug) console.log("\tcheckQuery")
-        if (!permission.hasOwnProperty("query")) return false;
+        if (!permission.hasOwnProperty("query")) return true;
         //try {
         var length = permission.query.length;
         if (length === undefined) return false;
@@ -142,16 +146,14 @@ module.exports = class Permissions {
         while (!forbidden && index < length) {
             if (!forbidden && !permission.query[index].hasOwnProperty("name")) forbidden = true;
             if (!forbidden && !permission.query[index].hasOwnProperty("check_value")) forbidden = true;
-            if (!forbidden && !permission.query[index].hasOwnProperty("is_mandatory")) forbidden = true;
-            if (!forbidden && !permission.query[index].hasOwnProperty("is_forbidden")) forbidden = true;
+            if (!forbidden && !permission.query[index].hasOwnProperty("presence")) forbidden = true;
             if (!forbidden) {
                 if (request.query.hasOwnProperty(permission.query[index].name.toLowerCase())) {
-                    if (!permission.query[index].is_forbidden) {
-                        if (permission.query[index].check_value) {
+                    if (permission.query[index].presence!=="forbidden") {
+                        if (permission.query[index].check_value!=="no") {
                             if (!permission.query[index].hasOwnProperty("value")) forbidden = true;
-                            if (!forbidden && !permission.query[index].hasOwnProperty("is_regex")) forbidden = true;
                             if (!forbidden) {
-                                if (permission.query[index].is_regex) {
+                                if (permission.query[index].check_value==="regex") {
                                     var regex = new RegExp(permission.query[index].value);
                                     var matchs = regex.exec(request.query[permission.query[index].name.toLowerCase()]);
                                     forbidden = (matchs === null);
@@ -164,8 +166,8 @@ module.exports = class Permissions {
                         forbidden = true;
                     }
                 } else {
-                    if (permission.query[index].is_mandatory) forbidden = true;
-                    if (debug) console.log("checkQuery header not found : " + !forbidden)
+                    if (permission.query[index].presence==="mandatory") forbidden = true;
+                    if (debug) console.log("checkQuery query not found : " + !forbidden+ " "+permission.query[index].presence)
                 }
             }
             index++;
@@ -186,80 +188,107 @@ module.exports = class Permissions {
                     "is_regex": true 
                     */
 
-    checkBody(request, permission) {
+    checkBody(body, permission) {
         if (debug) console.log("\tcheckBody")
         if (!permission.hasOwnProperty("body")) return true;
-        if (!permission.body.hasOwnProperty("is_mandatory")) return false;
-        if (!permission.body.hasOwnProperty("is_forbidden")) return false;
-        if ((request.data === undefined) || (request.data === "")) {
+        if (!permission.body.hasOwnProperty("presence")) return false;
+        var forbidden = false;
+        if ((body === undefined) || (body === "")) {
             //no body
-            if (permission.body.is_mandatory) return false;
+            if (permission.body.presence==="mandatory") return false;
         } else {
-            if (permission.body.is_forbidden) return false;
-            if (!permission.body.hasOwnProperty("attributes")) return true;
-            var length = permission.body.attributes.length;
+            if (permission.body.presence==="forbidden") return false;
+            if (!permission.body.hasOwnProperty("id")) return true;
+            var length = permission.body.id.length;
             if (length === undefined) return false;
             var index = 0;
-            var forbidden = false;
             while (!forbidden && index < length) {
-                var condition = permission.body.attributes[index];
-                if (!condition.hasOwnProperty("name")) forbidden = true;
-                if (!forbidden && !condition.hasOwnProperty("is_mandatory")) forbidden = true;
-                if (!forbidden && !condition.hasOwnProperty("is_forbidden")) forbidden = true;
-                if (!forbidden) {
-                    if (request.data.hasOwnProperty(condition.name)) {
-                        if (condition.is_forbidden) forbidden = true;
-                        if (!forbidden && !condition.hasOwnProperty("check_type")) forbidden = true;
-                        if (!forbidden && !condition.hasOwnProperty("check_value")) forbidden = true;
-                        if (!forbidden) {
-                            forbidden= ! this.checkAttributeType(request.data[condition.name], condition);
-                            if (!forbidden && condition.check_value) {
-                                if (!forbidden && !condition.hasOwnProperty("value")) forbidden = true;
-                                if (!forbidden && !condition.hasOwnProperty("is_regex")) forbidden = true;
-                                if (!forbidden) {
-                                    if ((typeof request.data[condition.name]==="object") && (request.data[condition.name].hasOwnProperty("value"))  && (request.data[condition.name].hasOwnProperty("type"))) {
-                                        if (condition.is_regex) {
-                                            if (typeof request.data[condition.name].value==="string") {
-                                                var regex = new RegExp(condition.value);
-                                                var matchs = regex.exec(request.data[condition.name].value);
-                                                forbidden = (matchs === null);
-                                            } else {
-                                                forbidden=true;
-                                            }
-                                        } else {
-                                            forbidden= (request.data[condition.name].value!==condition.value)
-                                        }
-                                    } else {
-                                        if (condition.is_regex) {
-                                            if (typeof request.data[condition.name]==="string") {
-                                                var regex = new RegExp(condition.value);
-                                                var matchs = regex.exec(request.data[condition.name]);
-                                                forbidden = (matchs === null);
-                                            } else {
-                                                forbidden=true;
-                                            }
-                                        } else {
-                                            forbidden= (request.data[condition.name]!==condition.value)
-                                        }
-                                    }
-                                }
- 
-                            }
-                        }
-
-                    } else {
-                        if (condition.is_mandatory) forbidden = true;
-                    }
-                }
+                var condition = permission.body.id[index];
+                forbidden=!this.checkBodyCondition(body, condition);
                 index++;
             }
-            return !forbidden;
+            if (!forbidden) {
+                if (!permission.body.hasOwnProperty("attributes")) return true;
+                length = permission.body.attributes.length;
+                if (length === undefined) return false;
+                var index = 0;
+                while (!forbidden && index < length) {
+                    var condition = permission.body.attributes[index];
+                    forbidden=!this.checkBodyCondition(body, condition);
+                    index++;
+                }
+            }
         }
+        return !forbidden;
+    }
+
+
+
+    checkBodyCondition(body, condition) {
+        var forbidden = false;
+        if (!condition.hasOwnProperty("name")) forbidden = true;
+        if (!forbidden && !condition.hasOwnProperty("presence")) forbidden = true;
+        if (!forbidden) {
+            if (body.hasOwnProperty(condition.name)) {
+                if (condition.presence==="forbidden") forbidden = true;
+                if (!forbidden && !condition.hasOwnProperty("check_type")) forbidden = true;
+                if (!forbidden && !condition.hasOwnProperty("check_value")) forbidden = true;
+                if (!forbidden) {
+                    forbidden = !this.checkAttributeType(body[condition.name], condition);
+                    if (!forbidden && condition.check_value == "regex") {
+                        if (!forbidden && !condition.hasOwnProperty("value")) forbidden = true;
+                        if (!forbidden) {
+                            if ((typeof body[condition.name] === "object") && (body[condition.name].hasOwnProperty("value")) && (body[condition.name].hasOwnProperty("type"))) {
+                                if (typeof body[condition.name].value === "string") {
+                                    var regex = new RegExp(condition.value);
+                                    var matchs = regex.exec(body[condition.name].value);
+                                    forbidden = (matchs === null);
+                                } else {
+                                    forbidden = true;
+                                }
+                            } else {
+                                if (typeof body[condition.name] === "string") {
+                                    var regex = new RegExp(condition.value);
+                                    var matchs = regex.exec(body[condition.name]);
+                                    forbidden = (matchs === null);
+                                } else {
+                                    forbidden = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!forbidden && condition.check_value == "equals") {
+                        if (!forbidden && !condition.hasOwnProperty("value")) forbidden = true;
+                        if (!forbidden) {
+                            if ((typeof body[condition.name] === "object") && (body[condition.name].hasOwnProperty("value")) && (body[condition.name].hasOwnProperty("type"))) {
+                                forbidden = (body[condition.name].value !== condition.value);
+                            } else {
+                                forbidden = (body[condition.name] !== condition.value)
+                            }
+                        }
+                    }
+                    if (!forbidden && condition.check_value == "list") {
+                        if (!forbidden && !condition.hasOwnProperty("value")) forbidden = true;
+                        if (!forbidden && !condition.value.lenght === undefined) forbidden = true;
+                        if (!forbidden) {
+                            if ((typeof body[condition.name] === "object") && (body[condition.name].hasOwnProperty("value")) && (body[condition.name].hasOwnProperty("type"))) {
+                                forbidden = (!condition.value.includes(body[condition.name].value));
+                            } else {
+                                forbidden = (!condition.value.includes(body[condition.name]));
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (condition.presence==="mandatory") forbidden = true;
+            }
+        }
+        return !forbidden;
     }
 
 
     checkAttributeType(attribute, condition) {
-        if (condition.check_type === "none") return true;
+        if (condition.check_type === "no") return true;
         if (condition.check_type === "standard") {
             if (!condition.hasOwnProperty("type")) return false;
             var type = typeof attribute;
@@ -267,7 +296,7 @@ module.exports = class Permissions {
             if ((type === "object") && (attribute.hasOwnProperty("value")) && (attribute.hasOwnProperty("type"))) {
                 return ((typeof attribute.value === jsontype) && (attribute.type === condition.type));
             }
-            if (type === jsontype)  return true
+            if (type === jsontype) return true
         }
         if (condition.check_type === "custom") {
             if (!condition.hasOwnProperty("type")) return false;
@@ -277,7 +306,7 @@ module.exports = class Permissions {
             if ((type === "object") && (attribute.hasOwnProperty("value")) && (attribute.hasOwnProperty("type"))) {
                 return ((typeof attribute.value === jsontype) && (attribute.type === condition.type));
             }
-            if (type === jsontype)  return true
+            if (type === jsontype) return true
         }
         return false;
     }

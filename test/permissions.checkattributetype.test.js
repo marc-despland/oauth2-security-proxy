@@ -3,15 +3,14 @@ var Permissions = require('../permissions.js')
 var permissions = new Permissions("permissions.d");
 
 describe('Test Permissions checkAttributeType', () => {
-    it('check_type=none', () => {
+    it('check_type=no', () => {
         var attribute = null;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
-            check_type: "none",
+            presence: "optional",
+            check_type: "no",
             type: "Text",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -24,11 +23,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Text",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -36,11 +34,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Text",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -51,11 +48,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Text",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -66,11 +62,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Text",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -78,11 +73,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Text",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -95,11 +89,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Integer",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -107,11 +100,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Integer",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -122,11 +114,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Integer",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -137,11 +128,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Integer",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -149,11 +139,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Integer",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -166,11 +155,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Float",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -178,11 +166,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 2.3;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Float",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -193,11 +180,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Float",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -208,11 +194,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Float",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -220,11 +205,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Float",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -237,11 +221,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Boolean",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -249,11 +232,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = true;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Boolean",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -264,11 +246,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Boolean",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -279,11 +260,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Boolean",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -291,11 +271,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "Boolean",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -308,11 +287,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "DateTime",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -320,11 +298,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = "2016-08-08T10:18:16Z";
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "DateTime",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -335,11 +312,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "DateTime",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -350,11 +326,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "DateTime",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -362,11 +337,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 22;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "DateTime",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -385,11 +359,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "geo:json",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -403,11 +376,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "geo:json",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -424,11 +396,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "geo:json",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -439,11 +410,10 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "geo:json",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -451,11 +421,10 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 22;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "standard",
             type: "geo:json",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -468,12 +437,11 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -481,12 +449,11 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = "TEXT_URLENCODED";
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -497,12 +464,11 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -513,12 +479,11 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -526,12 +491,11 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -544,12 +508,11 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "StructuredValue",
             type: "Point",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -557,12 +520,11 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = { x: 2, y:3};
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "StructuredValue",
             type: "Point",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
@@ -573,12 +535,11 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "StructuredValue",
             type: "Point",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -589,12 +550,11 @@ describe('Test Permissions checkAttributeType', () => {
         };
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "StructuredValue",
             type: "Point",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
@@ -602,12 +562,11 @@ describe('Test Permissions checkAttributeType', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
-            is_mandatory: false,
-            is_forbidden: false,
+            presence: "optional",
             check_type: "custom",
             derived: "StructuredValue",
             type: "Point",
-            check_value: false
+            check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });

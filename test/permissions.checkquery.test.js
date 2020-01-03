@@ -12,10 +12,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: {
-                is_forbidden: false,
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }
         };
         var request = {
@@ -35,9 +34,8 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }]
         };
         var request = {
@@ -57,9 +55,8 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
                 name: "Fiware-Service",
-                is_mandatory: false
+                presence: "optional"
             }]
         };
         var request = {
@@ -71,29 +68,7 @@ describe('Test Permissions checkQuery', () => {
         }
         assert.equal(permissions.checkQuery(request, permission), false);
     });
-    it('Query missing is_mandatory', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            query: [{
-                is_forbidden: false,
-                name: "Fiware-Service",
-                check_value: false
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            query: {
-                "fiware-service" : "Test"
-            }
-        }
-        assert.equal(permissions.checkQuery(request, permission), false);
-    });
-    it('Query missing is_forbidden', () => {
+    it('Query missing presence', () => {
         var permission = {
             method: "GET",
             path: {
@@ -102,8 +77,7 @@ describe('Test Permissions checkQuery', () => {
             },
             query: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no"
             }]
         };
         var request = {
@@ -123,10 +97,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }]
         };
         var request = {
@@ -146,10 +119,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: true,
+                presence: "forbidden",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no"
             }]
         };
         var request = {
@@ -169,10 +141,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
                 name: "Fiware-ServicePath",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }]
         };
         var request = {
@@ -192,10 +163,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: true,
+                presence: "forbidden",
                 name: "Fiware-ServicePath",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no"
             }]
         };
         var request = {
@@ -215,10 +185,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true
+                check_value: "no"
             }]
         };
         var request = {
@@ -238,10 +207,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-ServicePath",
-                check_value: false,
-                is_mandatory: true
+                check_value: "no"
             }]
         };
         var request = {
@@ -261,12 +229,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                check_value:"equals",
                 value: "Test"
             }]
         };
@@ -287,12 +252,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                check_value:"equals",
                 value: "MArs"
             }]
         };
@@ -313,12 +275,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                check_value:"regex",
                 value: "Te.*"
             }]
         };
@@ -339,12 +298,9 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                check_value:"regex",
                 value: "Ma.*"
             }]
         };
@@ -365,20 +321,14 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                check_value:"regex",
                 value: "Ma.*"
             }, {
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                check_value:"equals",
                 value: "Test"
             }]
         };
@@ -399,20 +349,14 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                check_value:"regex",
                 value: "Ma.*"
             }, {
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                check_value:"equals",
                 value: "Tes"
             }]
         };
@@ -433,20 +377,14 @@ describe('Test Permissions checkQuery', () => {
                 is_regex: false
             },
             query: [{
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                check_value:"regex",
                 value: "Te.*"
             }, {
-                is_forbidden: false,
+                presence: "mandatory",
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                check_value:"equals",
                 value: "Test"
             }]
         };

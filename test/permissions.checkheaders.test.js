@@ -13,15 +13,15 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: {
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -34,15 +34,15 @@ describe('Test Permissions checkHeaders', () => {
                 is_regex: false
             },
             headers: [{
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -56,19 +56,19 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                is_mandatory: false
+                presence: "optional"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
     });
-    it('Header missing is_mandatory', () => {
+    it('Header missing presence', () => {
         var permission = {
             method: "GET",
             path: {
@@ -77,14 +77,14 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false
+                check_value: "no"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -98,15 +98,15 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), true);
@@ -120,15 +120,15 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-ServicePath",
-                check_value: false,
-                is_mandatory: false
+                check_value: "no",
+                presence: "optional"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), true);
@@ -142,15 +142,15 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true
+                check_value: "no",
+                presence: "mandatory"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), true);
@@ -164,15 +164,15 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-ServicePath",
-                check_value: false,
-                is_mandatory: true
+                check_value: "no",
+                presence: "mandatory"
             }]
         };
         var request = {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -186,10 +186,8 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                presence: "mandatory",
+                check_value: "equals",
                 value: "Test"
             }]
         };
@@ -197,7 +195,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), true);
@@ -211,10 +209,8 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                presence: "mandatory",
+                check_value: "equals",
                 value: "MArs"
             }]
         };
@@ -222,7 +218,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -236,10 +232,8 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                presence: "mandatory",
+                check_value: "regex",
                 value: "Te.*"
             }]
         };
@@ -247,7 +241,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), true);
@@ -261,10 +255,8 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                presence: "mandatory",
+                check_value: "regex",
                 value: "Ma.*"
             }]
         };
@@ -272,7 +264,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -286,17 +278,13 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                presence: "mandatory",
+                check_value: "regex",
                 value: "Ma.*"
             }, {
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                presence: "mandatory",
+                check_value: "equals",
                 value: "Test"
             }]
         };
@@ -304,7 +292,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -318,17 +306,13 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                presence: "mandatory",
+                check_value: "regex",
                 value: "Ma.*"
             }, {
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                presence: "mandatory",
+                check_value: "equals",
                 value: "Tes"
             }]
         };
@@ -336,7 +320,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), false);
@@ -350,17 +334,13 @@ describe('Test Permissions checkHeaders', () => {
             },
             headers: [{
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: true,
+                presence: "mandatory",
+                check_value: "regex",
                 value: "Te.*"
             }, {
                 name: "Fiware-Service",
-                check_value: false,
-                is_mandatory: true,
-                check_value:true,
-                is_regex: false,
+                presence: "mandatory",
+                check_value: "equals",
                 value: "Test"
             }]
         };
@@ -368,7 +348,7 @@ describe('Test Permissions checkHeaders', () => {
             method: "GET",
             path: "/v2/types",
             headers: {
-                "fiware-service" : "Test"
+                "fiware-service": "Test"
             }
         }
         assert.equal(permissions.checkHeaders(request, permission), true);

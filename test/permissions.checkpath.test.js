@@ -67,7 +67,7 @@ describe('Test Permissions checkPath', () => {
             method: "GET",
             path: "/v2/types"
         }
-        assert.equal(permissions.checkPath(request, permission), false);
+        assert.equal(permissions.checkPath(request, permission), true);
     });
     it('missing value ', () => {
         var permission = {
