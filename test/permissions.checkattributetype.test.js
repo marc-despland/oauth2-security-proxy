@@ -1,6 +1,6 @@
 const assert = require('assert');
 var Permissions = require('../permissions.js')
-var permissions = new Permissions("permissions.d");
+var permissions = new Permissions(null, null);
 
 describe('Test Permissions checkAttributeType', () => {
     it('check_type=no', () => {

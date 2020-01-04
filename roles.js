@@ -1,14 +1,18 @@
 'use strict';
 const fs = require('fs');
-var debug = true;
+var debug = false;
 
 
 module.exports = class Roles {
 
     constructor(folder) {
         this.roles = {};
-        this.readFolder(folder)
+        if (folder!==null) this.readFolder(folder)
 
+    }
+
+    loadRole(roleid, role) {
+        this.roles[roleid]=role;
     }
 
     permissionsList(roles) {
@@ -16,6 +20,7 @@ module.exports = class Roles {
         var list = [];
         roles.forEach(role => {
             if (this.roles.hasOwnProperty(role.id)) {
+                if (debug) console.log("permissionsList found role :" + role)
                 if (this.roles[role.id].hasOwnProperty("permissions")) {
                     this.roles[role.id].permissions.forEach(permission => {
                         if (!list.includes(permission)) {

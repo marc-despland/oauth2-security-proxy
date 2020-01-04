@@ -28,19 +28,56 @@ var permission= {
     permission : id,
     name: argv.name!==undefined ? argv.name: "",
     request: {
+        method: "POST",
+        path: {
+            value: "/v2/entities",
+            is_regex: false
+        },
         headers: [{
             name: "Fiware-Service",
-            mandatory: true,
-            value: "TEST",
-            is_regex: false
+            presence: "mandatory",
+            check_value: "equals",
+            value: "TEST"
+        },{
+            name: "Fiware-ServicePath",
+            presence: "mandatory",
+            check_value: "regex",
+            value: "^/.*"
         }],
-        query: [],
-        method: "GET",
-        path: {
-            value: "/*",
-            is_regex: true
-        },
-        body: {}
+        query: [{
+            name: "q",
+            presence: "forbidden"
+        }],
+        body: {
+            presence: "mandatory",
+            id: [{
+                name: "id",
+                presence: "mandatory",
+                check_type: "json",
+                check_value: "no",
+                type: "string"
+            },{
+                name: "type",
+                presence: "mandatory",
+                check_type: "json",
+                type: "string",
+                check_value: "equals",
+                value: "Room"
+            }],
+            attributes: [{
+                name: "temperature",
+                presence: "mandatory",
+                check_type: "ngsi_standard",
+                type: "Float",
+                check_value: "no"
+            },{
+                name: "pressure",
+                presence: "mandatory",
+                check_type: "ngsi_standard",
+                type: "Integer",
+                check_value: "no"
+            }]
+        }
     }
 }
 

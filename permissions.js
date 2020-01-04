@@ -19,7 +19,7 @@ module.exports = class Permissions {
     constructor(folder, roles) {
         this.permissions = {};
         this.roles = roles;
-        this.readFolder(folder)
+        if (folder!==null) this.readFolder(folder)
 
     }
 
@@ -31,13 +31,14 @@ module.exports = class Permissions {
         if (debug) console.log("authorizeRequest roles" + JSON.stringify(roles));
         var authorized = [];
         var list = this.roles.permissionsList(roles);
+        if (debug) console.log("authorizeRequest permissionsList" + JSON.stringify(list));
         list.forEach(permid => {
             if (debug) console.log("authorizeRequest : permid=" + permid)
             if (this.checkPermissionRequest(request, permid)) {
                 authorized.push(permid);
             }
         })
-        if (debug) console.log("authorizeRequest list" + JSON.stringify(authorized));
+        if (debug) console.log("authorizeRequest authorized" + JSON.stringify(authorized));
         return authorized;
     }
 
@@ -145,12 +146,12 @@ module.exports = class Permissions {
         var index = 0;
         while (!forbidden && index < length) {
             if (!forbidden && !permission.query[index].hasOwnProperty("name")) forbidden = true;
-            if (!forbidden && !permission.query[index].hasOwnProperty("check_value")) forbidden = true;
             if (!forbidden && !permission.query[index].hasOwnProperty("presence")) forbidden = true;
             if (!forbidden) {
                 if (request.query.hasOwnProperty(permission.query[index].name.toLowerCase())) {
                     if (permission.query[index].presence!=="forbidden") {
-                        if (permission.query[index].check_value!=="no") {
+                        if (!forbidden && !permission.query[index].hasOwnProperty("check_value")) forbidden = true;
+                        if (!forbidden && permission.query[index].check_value!=="no") {
                             if (!permission.query[index].hasOwnProperty("value")) forbidden = true;
                             if (!forbidden) {
                                 if (permission.query[index].check_value==="regex") {
