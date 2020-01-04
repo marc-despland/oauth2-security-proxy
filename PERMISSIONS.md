@@ -159,3 +159,51 @@ If **is_regex** if *true*, the **value** of the condition is a RegExp that shoul
   - **forbidden** : the body is not allowed
 * **id** : An array of *BodyCondition* that are discrimant for the permission. They are tests first.
 * **attributes** : Another array of *BodyCondition* the permission has to fulfill.
+
+#### BodyCondition
+A BodyConition define a condition for a JSON body. It defines elements that a property of the body must fulfill.
+
+```
+                {
+                    "name": "id",
+                    "presence": "forbidden"
+                }
+```
+
+```
+                {
+                    "name": "id",
+                    "presence": "mandatory",
+                    "check_type": "ngsi_custom",
+                    "type": "TEXT_URL_ENCODED",
+                    "derived": "Text",
+                    "check_value": "regex",
+                    "value" : "^Roo.*$"
+                }
+```
+
+**mandatory fields:**
+* **name** : The name of the property
+* **presence** : 
+  - **optional** : the property is allow 
+  - **mandatory** : the property have to be present
+  - **forbidden** : the property is not allow
+
+**if presence is *optional* or *mandatory* :**
+* **check_type** : 
+  - **no** : Every type is allow
+  - **ngsi_standard** : the type in the field **type** must be an NGSIv2 type (normalized or key-value format entity)
+    - **Text**
+    - **Integer**
+    - **Float**
+    - **DateTime**
+    - **Boolean**
+    - **geo:json**
+    - **StructuredValue**
+  - **ngsi_custom** : The type in the field **type** contains the custom name. The field **derived** contains the original NGSIv2 type.
+  - **json** : the field **type** contains the json type return by *type of*
+* **check_value** : how to check the value of the entities. Works with normal key-value json but also with *normalized NGSI* body
+  - **no** : No check on the property value
+  - **equals** : the field **value** must be equals to the property value
+  - **regex** : the field **value** contain a RegExp that should match the property value
+  - **list** : the field **value** is an array, one of its elements should match the property value

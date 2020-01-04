@@ -16,7 +16,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //Text
-    it('check_type=standard normalized type Text ok', () => {
+    it('check_type=ngsi_standard normalized type Text ok', () => {
         var attribute = {
             type: "Text",
             value: "text"
@@ -24,24 +24,24 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Text",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard keyvalue type Text ok', () => {
+    it('check_type=ngsi_standard keyvalue type Text ok', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Text",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard normalized type Text wrong type', () => {
+    it('check_type=ngsi_standard normalized type Text wrong type', () => {
         var attribute = {
             type: "Integer",
             value: 2
@@ -49,13 +49,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Text",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard normalized type Text wrong value', () => {
+    it('check_type=ngsi_standard normalized type Text wrong value', () => {
         var attribute = {
             type: "Text",
             value: 2
@@ -63,18 +63,18 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Text",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard keyvalue type Text wrong', () => {
+    it('check_type=ngsi_standard keyvalue type Text wrong', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Text",
             check_value: "no"
         }
@@ -82,7 +82,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //Integer
-    it('check_type=standard normalized type Integer ok', () => {
+    it('check_type=ngsi_standard normalized type Integer ok', () => {
         var attribute = {
             type: "Integer",
             value: 2
@@ -90,24 +90,24 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Integer",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard keyvalue type Integer ok', () => {
+    it('check_type=ngsi_standard keyvalue type Integer ok', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Integer",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard normalized type Integer wrong type', () => {
+    it('check_type=ngsi_standard normalized type Integer wrong type', () => {
         var attribute = {
             type: "Text",
             value: 2
@@ -115,13 +115,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Integer",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard normalized type Integer wrong value', () => {
+    it('check_type=ngsi_standard normalized type Integer wrong value', () => {
         var attribute = {
             type: "Integer",
             value: "text"
@@ -129,18 +129,18 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Integer",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard keyvalue type Integer wrong', () => {
+    it('check_type=ngsi_standard keyvalue type Integer wrong', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Integer",
             check_value: "no"
         }
@@ -148,7 +148,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //Float
-    it('check_type=standard normalized type Float ok', () => {
+    it('check_type=ngsi_standard normalized type Float ok', () => {
         var attribute = {
             type: "Float",
             value: 2.3
@@ -156,24 +156,24 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Float",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard keyvalue type Float ok', () => {
+    it('check_type=ngsi_standard keyvalue type Float ok', () => {
         var attribute = 2.3;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Float",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard normalized type Float wrong type', () => {
+    it('check_type=ngsi_standard normalized type Float wrong type', () => {
         var attribute = {
             type: "Text",
             value: 2.3
@@ -181,13 +181,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Float",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard normalized type Float wrong value', () => {
+    it('check_type=ngsi_standard normalized type Float wrong value', () => {
         var attribute = {
             type: "Float",
             value: "text"
@@ -195,18 +195,18 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Float",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard keyvalue type Float wrong', () => {
+    it('check_type=ngsi_standard keyvalue type Float wrong', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Float",
             check_value: "no"
         }
@@ -214,7 +214,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //Boolean
-    it('check_type=standard normalized type Boolean ok', () => {
+    it('check_type=ngsi_standard normalized type Boolean ok', () => {
         var attribute = {
             type: "Boolean",
             value: true
@@ -222,24 +222,24 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Boolean",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard keyvalue type Boolean ok', () => {
+    it('check_type=ngsi_standard keyvalue type Boolean ok', () => {
         var attribute = true;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Boolean",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard normalized type Boolean wrong type', () => {
+    it('check_type=ngsi_standard normalized type Boolean wrong type', () => {
         var attribute = {
             type: "Text",
             value: true
@@ -247,13 +247,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Boolean",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard normalized type Boolean wrong value', () => {
+    it('check_type=ngsi_standard normalized type Boolean wrong value', () => {
         var attribute = {
             type: "Boolean",
             value: "text"
@@ -261,18 +261,18 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Boolean",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard keyvalue type Boolean wrong', () => {
+    it('check_type=ngsi_standard keyvalue type Boolean wrong', () => {
         var attribute = "text";
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "Boolean",
             check_value: "no"
         }
@@ -280,7 +280,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //DateTime
-    it('check_type=standard normalized type DateTime ok', () => {
+    it('check_type=ngsi_standard normalized type DateTime ok', () => {
         var attribute = {
             type: "DateTime",
             value: "2016-08-08T10:18:16Z"
@@ -288,24 +288,24 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "DateTime",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard keyvalue type DateTime ok', () => {
+    it('check_type=ngsi_standard keyvalue type DateTime ok', () => {
         var attribute = "2016-08-08T10:18:16Z";
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "DateTime",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard normalized type DateTime wrong type', () => {
+    it('check_type=ngsi_standard normalized type DateTime wrong type', () => {
         var attribute = {
             type: "Text",
             value: "2016-08-08T10:18:16Z"
@@ -313,13 +313,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "DateTime",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard normalized type DateTime wrong value', () => {
+    it('check_type=ngsi_standard normalized type DateTime wrong value', () => {
         var attribute = {
             type: "DateTime",
             value: 22
@@ -327,18 +327,18 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "DateTime",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard keyvalue type DateTime wrong', () => {
+    it('check_type=ngsi_standard keyvalue type DateTime wrong', () => {
         var attribute = 22;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "DateTime",
             check_value: "no"
         }
@@ -346,7 +346,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //geo:json
-    it('check_type=standard normalized type geo:json ok', () => {
+    it('check_type=ngsi_standard normalized type geo:json ok', () => {
         var attribute = {
             type: "geo:json",
             value: {
@@ -360,13 +360,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "geo:json",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard keyvalue type geo:json ok', () => {
+    it('check_type=ngsi_standard keyvalue type geo:json ok', () => {
         var attribute = {
             "type": "Point",
             "coordinates": [
@@ -377,13 +377,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "geo:json",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=standard normalized type geo:json wrong type', () => {
+    it('check_type=ngsi_standard normalized type geo:json wrong type', () => {
         var attribute = {
             type: "Text",
             value: {
@@ -397,13 +397,13 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "geo:json",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=standard normalized type geo:json wrong value', () => {
+    it('check_type=ngsi_standard normalized type geo:json wrong value', () => {
         var attribute = {
             type: "geo:json",
             value: 22
@@ -411,18 +411,18 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "geo:json",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=custom keyvalue type geo:json wrong', () => {
+    it('check_type=ngsi_custom keyvalue type geo:json wrong', () => {
         var attribute = 22;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "standard",
+            check_type: "ngsi_standard",
             type: "geo:json",
             check_value: "no"
         }
@@ -430,7 +430,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //TEXT_URLENCODED
-    it('check_type=custom normalized type TEXT_URLENCODED ok', () => {
+    it('check_type=ngsi_custom normalized type TEXT_URLENCODED ok', () => {
         var attribute = {
             type: "TEXT_URLENCODED",
             value: "text"
@@ -438,26 +438,26 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=custom keyvalue type TEXT_URLENCODED ok', () => {
+    it('check_type=ngsi_custom keyvalue type TEXT_URLENCODED ok', () => {
         var attribute = "TEXT_URLENCODED";
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=custom normalized type TEXT_URLENCODED wrong type', () => {
+    it('check_type=ngsi_custom normalized type TEXT_URLENCODED wrong type', () => {
         var attribute = {
             type: "Integer",
             value: 2
@@ -465,14 +465,14 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=custom normalized type TEXT_URLENCODED wrong value', () => {
+    it('check_type=ngsi_custom normalized type TEXT_URLENCODED wrong value', () => {
         var attribute = {
             type: "TEXT_URLENCODED",
             value: 2
@@ -480,19 +480,19 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=custom keyvalue type TEXT_URLENCODED wrong', () => {
+    it('check_type=ngsi_custom keyvalue type TEXT_URLENCODED wrong', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "Text",
             type: "TEXT_URLENCODED",
             check_value: "no"
@@ -501,7 +501,7 @@ describe('Test Permissions checkAttributeType', () => {
     });
     //********************************************
     //Point
-    it('check_type=custom normalized type Point ok', () => {
+    it('check_type=ngsi_custom normalized type Point ok', () => {
         var attribute = {
             type: "Point",
             value: { x: 2, y:3}
@@ -509,26 +509,26 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "StructuredValue",
             type: "Point",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=custom keyvalue type Point ok', () => {
+    it('check_type=ngsi_custom keyvalue type Point ok', () => {
         var attribute = { x: 2, y:3};
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "StructuredValue",
             type: "Point",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
-    it('check_type=custom normalized type Point wrong type', () => {
+    it('check_type=ngsi_custom normalized type Point wrong type', () => {
         var attribute = {
             type: "Integer",
             value: { x: 2, y:3}
@@ -536,14 +536,14 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "StructuredValue",
             type: "Point",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=custom normalized type Point wrong value', () => {
+    it('check_type=ngsi_custom normalized type Point wrong value', () => {
         var attribute = {
             type: "Point",
             value: 2
@@ -551,21 +551,133 @@ describe('Test Permissions checkAttributeType', () => {
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "StructuredValue",
             type: "Point",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
-    it('check_type=custom keyvalue type Point wrong', () => {
+    it('check_type=ngsi_custom keyvalue type Point wrong', () => {
         var attribute = 2;
         var condition = {
             name: "temperature",
             presence: "optional",
-            check_type: "custom",
+            check_type: "ngsi_custom",
             derived: "StructuredValue",
             type: "Point",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), false);
+    });
+    it('check_type=json  type number', () => {
+        var attribute = 2;
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "number",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), true);
+    });
+    it('check_type=json  type number failed', () => {
+        var attribute = "2";
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "number",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), false);
+    });
+    it('check_type=json  type string', () => {
+        var attribute = "text";
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "string",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), true);
+    });
+    it('check_type=json  type string failed', () => {
+        var attribute = false;
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "string",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), false);
+    });
+    it('check_type=json  type boolean', () => {
+        var attribute = true;
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "boolean",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), true);
+    });
+    it('check_type=json  type boolean failed', () => {
+        var attribute = "2";
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "boolean",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), false);
+    });
+    it('check_type=json  type object', () => {
+        var attribute = {
+            test: 5
+        };
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "object",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), true);
+    });
+    it('check_type=json  type object failed', () => {
+        var attribute = "2";
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "object",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), false);
+    });
+    it('check_type=json  type array', () => {
+        var attribute = [2, 6, "test"];
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "object",
+            check_value: "no"
+        }
+        assert.equal(permissions.checkAttributeType(attribute, condition), true);
+    });
+    it('check_type=json  type array failed', () => {
+        var attribute = "2";
+        var condition = {
+            name: "temperature",
+            presence: "optional",
+            check_type: "json",
+            type: "object",
             check_value: "no"
         }
         assert.equal(permissions.checkAttributeType(attribute, condition), false);

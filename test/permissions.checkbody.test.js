@@ -379,7 +379,7 @@ describe('Test Permissions checkBody', () => {
                 attributes: [{
                     name: "temperature",
                     presence: "optional",
-                    check_type: "standard",
+                    check_type: "ngsi_standard",
                     type: "Text",
                     check_value: "no"
                 }]
@@ -411,7 +411,7 @@ describe('Test Permissions checkBody', () => {
                 attributes: [{
                     name: "temperature",
                     presence: "optional",
-                    check_type: "standard",
+                    check_type: "ngsi_standard",
                     type: "Text",
                     check_value: "no"
                 }]
@@ -443,7 +443,7 @@ describe('Test Permissions checkBody', () => {
                 attributes: [{
                     name: "temperature",
                     presence: "optional",
-                    check_type: "standard",
+                    check_type: "ngsi_standard",
                     type: "Text",
                     check_value: "no"
                 }]
@@ -481,7 +481,7 @@ describe('Test Permissions checkBody', () => {
                 attributes: [{
                     name: "temperature",
                     presence: "optional",
-                    check_type: "standard",
+                    check_type: "ngsi_standard",
                     type: "Text",
                     check_value: "no"
                 }]

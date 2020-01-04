@@ -289,7 +289,7 @@ module.exports = class Permissions {
 
     checkAttributeType(attribute, condition) {
         if (condition.check_type === "no") return true;
-        if (condition.check_type === "standard") {
+        if (condition.check_type === "ngsi_standard") {
             if (!condition.hasOwnProperty("type")) return false;
             var type = typeof attribute;
             var jsontype = typesNGSI[condition.type]
@@ -298,7 +298,7 @@ module.exports = class Permissions {
             }
             if (type === jsontype) return true
         }
-        if (condition.check_type === "custom") {
+        if (condition.check_type === "ngsi_custom") {
             if (!condition.hasOwnProperty("type")) return false;
             if (!condition.hasOwnProperty("derived")) return false;
             var type = typeof attribute;
@@ -307,6 +307,11 @@ module.exports = class Permissions {
                 return ((typeof attribute.value === jsontype) && (attribute.type === condition.type));
             }
             if (type === jsontype) return true
+        }
+        if (condition.check_type === "json") {
+            if (!condition.hasOwnProperty("type")) return false;
+            var type = typeof attribute;
+            if (type === condition.type) return true
         }
         return false;
     }
