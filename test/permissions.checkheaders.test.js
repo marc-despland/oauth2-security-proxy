@@ -4,91 +4,7 @@ var permissions = new Permissions(null, null);
 
 
 describe('Test Permissions checkHeaders', () => {
-    it('Headers not an array', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            headers: {
-                name: "Fiware-Service",
-                check_value: "no",
-                presence: "optional"
-            }
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            headers: {
-                "fiware-service": "Test"
-            }
-        }
-        assert.equal(permissions.checkHeaders(request, permission), false);
-    });
-    it('Header missing name', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            headers: [{
-                check_value: "no",
-                presence: "optional"
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            headers: {
-                "fiware-service": "Test"
-            }
-        }
-        assert.equal(permissions.checkHeaders(request, permission), false);
-    });
-    it('Header missing check_value', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            headers: [{
-                name: "Fiware-Service",
-                presence: "optional"
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            headers: {
-                "fiware-service": "Test"
-            }
-        }
-        assert.equal(permissions.checkHeaders(request, permission), false);
-    });
-    it('Header missing presence', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            headers: [{
-                name: "Fiware-Service",
-                check_value: "no"
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            headers: {
-                "fiware-service": "Test"
-            }
-        }
-        assert.equal(permissions.checkHeaders(request, permission), false);
-    });
+
     it('Header present not mandatory', () => {
         var permission = {
             method: "GET",
@@ -109,6 +25,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), true);
     });
     it('Header absent not mandatory', () => {
@@ -131,6 +48,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), true);
     });
     it('Header present mandatory', () => {
@@ -153,6 +71,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), true);
     });
     it('Header absent mandatory', () => {
@@ -175,6 +94,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), false);
     });
     it('Header present mandatory check value equals match', () => {
@@ -198,6 +118,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), true);
     });
     it('Header present mandatory check value equals don\'t match', () => {
@@ -221,6 +142,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), false);
     });
     it('Header present mandatory check value regex match', () => {
@@ -244,6 +166,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), true);
     });
     it('Header present mandatory check value regex don\'t match', () => {
@@ -267,6 +190,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), false);
     });
     it('2 headers rules, one match one failed', () => {
@@ -295,6 +219,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), false);
     });
     it('2 headers rules, two failed', () => {
@@ -323,6 +248,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), false);
     });
     it('2 headers rules, two match', () => {
@@ -351,6 +277,7 @@ describe('Test Permissions checkHeaders', () => {
                 "fiware-service": "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkHeaders(request, permission), true);
     });
 });

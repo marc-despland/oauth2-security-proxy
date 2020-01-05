@@ -4,91 +4,7 @@ var permissions = new Permissions(null, null);
 
 
 describe('Test Permissions checkQuery', () => {
-    it('Query not an array', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            query: {
-                name: "Fiware-Service",
-                check_value: "no",
-                presence: "optional"
-            }
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            query: {
-                "fiware-service" : "Test"
-            }
-        }
-        assert.equal(permissions.checkQuery(request, permission), false);
-    });
-    it('Query missing name', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            query: [{
-                check_value: "no",
-                presence: "optional"
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            query: {
-                "fiware-service" : "Test"
-            }
-        }
-        assert.equal(permissions.checkQuery(request, permission), false);
-    });
-    it('Query missing check_value', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            query: [{
-                name: "Fiware-Service",
-                presence: "optional"
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            query: {
-                "fiware-service" : "Test"
-            }
-        }
-        assert.equal(permissions.checkQuery(request, permission), false);
-    });
-    it('Query missing presence', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types",
-                is_regex: false
-            },
-            query: [{
-                name: "Fiware-Service",
-                check_value: "no"
-            }]
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types",
-            query: {
-                "fiware-service" : "Test"
-            }
-        }
-        assert.equal(permissions.checkQuery(request, permission), false);
-    });
+
     it('Query present not mandatory', () => {
         var permission = {
             method: "GET",
@@ -109,6 +25,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
     it('Query present not mandatory but forbidden', () => {
@@ -131,6 +48,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), false);
     });
     it('Query absent not mandatory', () => {
@@ -153,6 +71,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
     it('Query absent not mandatory and forbbiden', () => {
@@ -175,6 +94,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
     it('Query present mandatory', () => {
@@ -197,6 +117,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
     it('Query absent mandatory', () => {
@@ -219,6 +140,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), false);
     });
     it('Query present mandatory check value equals match', () => {
@@ -242,6 +164,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
     it('Query present mandatory check value equals don\'t match', () => {
@@ -265,6 +188,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), false);
     });
     it('Query present mandatory check value regex match', () => {
@@ -288,6 +212,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
     it('Query present mandatory check value regex don\'t match', () => {
@@ -311,6 +236,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), false);
     });
     it('2 query rules, one match one failed', () => {
@@ -339,6 +265,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), false);
     });
     it('2 query rules, two failed', () => {
@@ -367,6 +294,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), false);
     });
     it('2 query rules, two match', () => {
@@ -395,6 +323,7 @@ describe('Test Permissions checkQuery', () => {
                 "fiware-service" : "Test"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkQuery(request, permission), true);
     });
 });

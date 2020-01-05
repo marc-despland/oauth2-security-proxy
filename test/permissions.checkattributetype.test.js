@@ -12,6 +12,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Text",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     //********************************************
@@ -28,6 +29,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Text",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard keyvalue type Text ok', () => {
@@ -39,6 +41,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Text",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard normalized type Text wrong type', () => {
@@ -53,6 +56,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Text",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard normalized type Text wrong value', () => {
@@ -67,6 +71,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Text",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard keyvalue type Text wrong', () => {
@@ -78,6 +83,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Text",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -94,6 +100,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Integer",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard keyvalue type Integer ok', () => {
@@ -105,6 +112,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Integer",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard normalized type Integer wrong type', () => {
@@ -119,6 +127,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Integer",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard normalized type Integer wrong value', () => {
@@ -133,6 +142,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Integer",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard keyvalue type Integer wrong', () => {
@@ -144,6 +154,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Integer",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -160,6 +171,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Float",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard keyvalue type Float ok', () => {
@@ -171,6 +183,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Float",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard normalized type Float wrong type', () => {
@@ -185,6 +198,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Float",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard normalized type Float wrong value', () => {
@@ -199,6 +213,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Float",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard keyvalue type Float wrong', () => {
@@ -210,6 +225,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Float",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -226,6 +242,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard keyvalue type Boolean ok', () => {
@@ -237,6 +254,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard normalized type Boolean wrong type', () => {
@@ -251,6 +269,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard normalized type Boolean wrong value', () => {
@@ -265,6 +284,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard keyvalue type Boolean wrong', () => {
@@ -276,6 +296,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -292,6 +313,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "DateTime",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard keyvalue type DateTime ok', () => {
@@ -303,6 +325,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "DateTime",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard normalized type DateTime wrong type', () => {
@@ -317,6 +340,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "DateTime",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard normalized type DateTime wrong value', () => {
@@ -331,6 +355,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "DateTime",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard keyvalue type DateTime wrong', () => {
@@ -342,6 +367,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "DateTime",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -364,6 +390,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "geo:json",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard keyvalue type geo:json ok', () => {
@@ -381,6 +408,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "geo:json",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_standard normalized type geo:json wrong type', () => {
@@ -401,6 +429,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "geo:json",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_standard normalized type geo:json wrong value', () => {
@@ -415,6 +444,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "geo:json",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_custom keyvalue type geo:json wrong', () => {
@@ -426,6 +456,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "geo:json",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -443,6 +474,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_custom keyvalue type TEXT_URLENCODED ok', () => {
@@ -455,6 +487,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_custom normalized type TEXT_URLENCODED wrong type', () => {
@@ -470,6 +503,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_custom normalized type TEXT_URLENCODED wrong value', () => {
@@ -485,6 +519,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_custom keyvalue type TEXT_URLENCODED wrong', () => {
@@ -497,6 +532,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "TEXT_URLENCODED",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     //********************************************
@@ -514,6 +550,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Point",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_custom keyvalue type Point ok', () => {
@@ -526,6 +563,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Point",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=ngsi_custom normalized type Point wrong type', () => {
@@ -541,6 +579,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Point",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_custom normalized type Point wrong value', () => {
@@ -556,6 +595,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Point",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=ngsi_custom keyvalue type Point wrong', () => {
@@ -568,6 +608,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "Point",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=json  type number', () => {
@@ -579,6 +620,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "number",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=json  type number failed', () => {
@@ -590,6 +632,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "number",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=json  type string', () => {
@@ -601,6 +644,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "string",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=json  type string failed', () => {
@@ -612,6 +656,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "string",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=json  type boolean', () => {
@@ -623,6 +668,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=json  type boolean failed', () => {
@@ -634,6 +680,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "boolean",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=json  type object', () => {
@@ -647,6 +694,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "object",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=json  type object failed', () => {
@@ -658,6 +706,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "object",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
     it('check_type=json  type array', () => {
@@ -669,6 +718,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "object",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), true);
     });
     it('check_type=json  type array failed', () => {
@@ -680,6 +730,7 @@ describe('Test Permissions checkAttributeType', () => {
             type: "object",
             check_value: "no"
         }
+        assert.equal(permissions.checkWebConditionFormat(condition), true);
         assert.equal(permissions.checkAttributeType(attribute, condition), false);
     });
 });

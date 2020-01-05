@@ -1,6 +1,6 @@
 const assert = require('assert');
 var Permissions = require('../permissions.js')
-var permissions = new Permissions(null,null);
+var permissions = new Permissions(null, null);
 
 describe('Test Permissions checkBody', () => {
     it('permission with no body field', () => {
@@ -22,54 +22,10 @@ describe('Test Permissions checkBody', () => {
         var permission = {
             method: "GET"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
-    it('permission with body field but no presence', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), false);
-    });
-    it('permission with body field but no presence', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), false);
-    });
+
     it('a body is present but presence forbidden', () => {
         var request = {
             method: "GET",
@@ -92,6 +48,7 @@ describe('Test Permissions checkBody', () => {
                 presence: "forbidden"
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('a body is undefined but presence mandatory', () => {
@@ -101,9 +58,12 @@ describe('Test Permissions checkBody', () => {
         var permission = {
             method: "GET",
             body: {
-                presence: "mandatory"
+                presence: "mandatory",
+                id: [],
+                attributes: []
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('a body is empty but presence mandatory', () => {
@@ -114,171 +74,17 @@ describe('Test Permissions checkBody', () => {
         var permission = {
             method: "GET",
             body: {
-                presence: "mandatory"
+                presence: "mandatory",
+                id: [],
+                attributes: []
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
-    it('a body is present but no fields attributes', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-                presence: "optional"
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), true);
-    });
-    it('a body is present but attribute not an arrays', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-                presence: "optional",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "equals",
-                    value: "Room2"
-                }],
-                attributes: {}
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), false);
-    });
-    it('a body is present but attribute have no name', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-                presence: "optional",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "equals",
-                    value: "Room2"
-                }],
-                attributes: [{
-                    presence: "optional"
-                }]
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), false);
-    });
-    it('a body is present but attribute have no is_mandatory', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-                presence: "optional",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "equals",
-                    value: "Room2"
-                }],
-                attributes: [{
-                    name: "id",
-                    is_forbidden: false
-                }]
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), false);
-    });
-    it('a body is present but attribute have no is_forbidden', () => {
-        var request = {
-            method: "GET",
-            data: {
-                "id": "Room2",
-                "type": "Room",
-                "temperature": {
-                    "value": 21,
-                    "type": "Float"
-                },
-                "pressure": {
-                    "value": 711,
-                    "type": "Integer"
-                }
-            }
-        };
-        var permission = {
-            method: "GET",
-            body: {
-                presence: "optional",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "equals",
-                    value: "Room2"
-                }],
-                attributes: [{
-                    name: "id",
-                    is_mandatory: false
-                }]
-            }
-        }
-        assert.equal(permissions.checkBody(request.data, permission), false);
-    });
+
+
+ 
     it('a body is present but attribute forbidden present', () => {
         var request = {
             method: "GET",
@@ -312,6 +118,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('a body is present but attribute mandatory absent', () => {
@@ -343,10 +150,13 @@ describe('Test Permissions checkBody', () => {
                 }],
                 attributes: [{
                     name: "007",
-                    presence: "mandatory"
+                    presence: "mandatory",
+                    check_type: "no",
+                    check_value: "no"
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('Attribute legacy temperature type Text', () => {
@@ -385,6 +195,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('Attribute legacy temperature type Text', () => {
@@ -417,6 +228,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('Attribute legacy temperature type Text wrong', () => {
@@ -449,6 +261,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('Attribute legacy temperature type Text wrong', () => {
@@ -487,6 +300,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('Attribute legacy temperature type Text wrong - no check', () => {
@@ -525,6 +339,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('check_data normalized regex match', () => {
@@ -563,6 +378,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('check_data normalized regex not match', () => {
@@ -601,6 +417,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
 
@@ -634,6 +451,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('check_data keyvalue regex not match', () => {
@@ -666,6 +484,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
 
@@ -707,6 +526,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('check_data normalized string equals not match', () => {
@@ -745,6 +565,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
 
@@ -778,6 +599,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('check_data keyvalue string equals not match', () => {
@@ -810,6 +632,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
 
@@ -843,6 +666,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
     it('check_data keyvalue string list match', () => {
@@ -875,6 +699,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
 
@@ -914,6 +739,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
 
@@ -953,6 +779,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), true);
     });
     it('check_data keyvalue string equals match id condition failed', () => {
@@ -985,6 +812,7 @@ describe('Test Permissions checkBody', () => {
                 }]
             }
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkBody(request.data, permission), false);
     });
 

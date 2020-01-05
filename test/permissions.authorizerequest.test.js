@@ -44,7 +44,7 @@ describe('Test Permissions authorizeRequest', () => {
         }
         var postall = {
             name: "POST all",
-            permission: "gettypes",
+            permission: "postall",
             request: {
                 method: "POST",
                 path: {
@@ -197,6 +197,10 @@ describe('Test Permissions authorizeRequest', () => {
             id: "user",
             name: "User"
         }]
+        assert.equal(permissions.checkPermissionFormat(gettypes, "gettypes"), true)
+        assert.equal(permissions.checkPermissionFormat(postall, "postall"), true)
+        assert.equal(permissions.checkPermissionFormat(postroom, "postroom"), true)
+        assert.equal(permissions.checkPermissionFormat(postroom2, "postroom2"), true)
         assert.deepEqual(permissions.authorizeRequest(request, requestrole), ["postall", "postroom"]);
     });
 

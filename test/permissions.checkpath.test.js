@@ -15,6 +15,7 @@ describe('Test Permissions checkPath', () => {
             method: "GET",
             path: "/v2/types"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkPath(request, permission), true);
     });
     it('path equal don\'t match', () => {
@@ -29,6 +30,7 @@ describe('Test Permissions checkPath', () => {
             method: "GET",
             path: "/v2/types"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkPath(request, permission), false);
     });
     it('path regex match', () => {
@@ -43,6 +45,7 @@ describe('Test Permissions checkPath', () => {
             method: "GET",
             path: "/v2/types"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkPath(request, permission), true);
     });
     it('path regex don\'t match', () => {
@@ -57,6 +60,7 @@ describe('Test Permissions checkPath', () => {
             method: "GET",
             path: "/v3/entities"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkPath(request, permission), false);
     });
     it('missing path ', () => {
@@ -67,32 +71,8 @@ describe('Test Permissions checkPath', () => {
             method: "GET",
             path: "/v2/types"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkPath(request, permission), true);
     });
-    it('missing value ', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                is_regex: false
-            }
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types"
-        }
-        assert.equal(permissions.checkPath(request, permission), false);
-    });
-    it('missing is_regex ', () => {
-        var permission = {
-            method: "GET",
-            path: {
-                value: "/v2/types"
-            }
-        };
-        var request = {
-            method: "GET",
-            path: "/v2/types"
-        }
-        assert.equal(permissions.checkPath(request, permission), false);
-    });
+
 });

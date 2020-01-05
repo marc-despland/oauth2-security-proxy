@@ -19,12 +19,20 @@ module.exports = class Permissions {
     constructor(folder, roles) {
         this.permissions = {};
         this.roles = roles;
-        if (folder!==null) this.readFolder(folder)
+        if (folder !== null) this.readFolder(folder)
 
     }
 
     loadPermission(permid, permission) {
-        this.permissions[permid]=permission;
+        this.permissions[permid] = permission;
+    }
+
+    checkPermissionsFormat() {
+        var good = true;
+        for (var permission in this.permissions) {
+            good &= this.checkPermissionFormat(this.permissions[permission]);
+        }
+        return (good == true);
     }
 
     authorizeRequest(request, roles) {
@@ -110,10 +118,10 @@ module.exports = class Permissions {
             if (!forbidden && !permission.headers[index].hasOwnProperty("presence")) forbidden = true;
             if (!forbidden) {
                 if (request.headers.hasOwnProperty(permission.headers[index].name.toLowerCase())) {
-                    if (permission.headers[index].check_value!=="no") {
+                    if (permission.headers[index].check_value !== "no") {
                         if (!permission.headers[index].hasOwnProperty("value")) forbidden = true;
                         if (!forbidden) {
-                            if (permission.headers[index].check_value=="regex") {
+                            if (permission.headers[index].check_value == "regex") {
                                 var regex = new RegExp(permission.headers[index].value);
                                 var matchs = regex.exec(request.headers[permission.headers[index].name.toLowerCase()]);
                                 forbidden = (matchs === null);
@@ -123,7 +131,7 @@ module.exports = class Permissions {
                         }
                     }
                 } else {
-                    if (permission.headers[index].presence==="mandatory") forbidden = true;
+                    if (permission.headers[index].presence === "mandatory") forbidden = true;
                     if (debug) console.log("\tcheckHeaders header not found : " + !forbidden)
                 }
             }
@@ -149,12 +157,12 @@ module.exports = class Permissions {
             if (!forbidden && !permission.query[index].hasOwnProperty("presence")) forbidden = true;
             if (!forbidden) {
                 if (request.query.hasOwnProperty(permission.query[index].name.toLowerCase())) {
-                    if (permission.query[index].presence!=="forbidden") {
+                    if (permission.query[index].presence !== "forbidden") {
                         if (!forbidden && !permission.query[index].hasOwnProperty("check_value")) forbidden = true;
-                        if (!forbidden && permission.query[index].check_value!=="no") {
+                        if (!forbidden && permission.query[index].check_value !== "no") {
                             if (!permission.query[index].hasOwnProperty("value")) forbidden = true;
                             if (!forbidden) {
-                                if (permission.query[index].check_value==="regex") {
+                                if (permission.query[index].check_value === "regex") {
                                     var regex = new RegExp(permission.query[index].value);
                                     var matchs = regex.exec(request.query[permission.query[index].name.toLowerCase()]);
                                     forbidden = (matchs === null);
@@ -167,8 +175,8 @@ module.exports = class Permissions {
                         forbidden = true;
                     }
                 } else {
-                    if (permission.query[index].presence==="mandatory") forbidden = true;
-                    if (debug) console.log("checkQuery query not found : " + !forbidden+ " "+permission.query[index].presence)
+                    if (permission.query[index].presence === "mandatory") forbidden = true;
+                    if (debug) console.log("checkQuery query not found : " + !forbidden + " " + permission.query[index].presence)
                 }
             }
             index++;
@@ -196,16 +204,16 @@ module.exports = class Permissions {
         var forbidden = false;
         if ((body === undefined) || (body === "")) {
             //no body
-            if (permission.body.presence==="mandatory") return false;
+            if (permission.body.presence === "mandatory") return false;
         } else {
-            if (permission.body.presence==="forbidden") return false;
+            if (permission.body.presence === "forbidden") return false;
             if (!permission.body.hasOwnProperty("id")) return true;
             var length = permission.body.id.length;
             if (length === undefined) return false;
             var index = 0;
             while (!forbidden && index < length) {
                 var condition = permission.body.id[index];
-                forbidden=!this.checkBodyCondition(body, condition);
+                forbidden = !this.checkBodyCondition(body, condition);
                 index++;
             }
             if (!forbidden) {
@@ -215,7 +223,7 @@ module.exports = class Permissions {
                 var index = 0;
                 while (!forbidden && index < length) {
                     var condition = permission.body.attributes[index];
-                    forbidden=!this.checkBodyCondition(body, condition);
+                    forbidden = !this.checkBodyCondition(body, condition);
                     index++;
                 }
             }
@@ -231,7 +239,7 @@ module.exports = class Permissions {
         if (!forbidden && !condition.hasOwnProperty("presence")) forbidden = true;
         if (!forbidden) {
             if (body.hasOwnProperty(condition.name)) {
-                if (condition.presence==="forbidden") forbidden = true;
+                if (condition.presence === "forbidden") forbidden = true;
                 if (!forbidden && !condition.hasOwnProperty("check_type")) forbidden = true;
                 if (!forbidden && !condition.hasOwnProperty("check_value")) forbidden = true;
                 if (!forbidden) {
@@ -281,7 +289,7 @@ module.exports = class Permissions {
                     }
                 }
             } else {
-                if (condition.presence==="mandatory") forbidden = true;
+                if (condition.presence === "mandatory") forbidden = true;
             }
         }
         return !forbidden;
@@ -344,6 +352,162 @@ module.exports = class Permissions {
         } catch (exceptio) {
             console.log("Failed to load permission from file " + file);
         }
+    }
+
+
+    checkPermissionFormat(permission, permid) {
+        var good = true;
+        console.log("Checking format of permission : " + permid)
+        good &= this.checkProperty(permission, true, "name", "string", null, "\t");
+        good &= this.checkProperty(permission, true, "permission", "string", permid, "\t");
+        good &= this.checkProperty(permission, false, "request", "object", null, "\t")
+        if (permission.hasOwnProperty("request")) {
+            good &= this.checkPermissionRequestFormat(permission.request)
+        }
+
+        return (good == true)
+    }
+
+
+    checkPermissionRequestFormat(permission) {
+        var good = true;
+        good &= this.checkProperty(permission, false, "method", "string", ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTION"], "\t\t");
+        good &= this.checkProperty(permission, false, "path", "object", null, "\t\t")
+        if (good && permission.hasOwnProperty("path")) {
+            good &= this.checkProperty(permission.path, true, "value", "string", null, "\t\t\tpath : ")
+            good &= this.checkProperty(permission.path, true, "is_regex", "boolean", null, "\t\t\tpath : ")
+        }
+        good &= this.checkProperty(permission, false, "query", "array", null, "\t\t")
+        if (good && permission.hasOwnProperty("query")) {
+            permission.query.forEach(query => {
+                good &= this.checkProperty(query, true, "name", "string", null, query.name !== undefined ? "\t\t\tquery : " + query.name + " : " : "query : ")
+                good &= this.checkProperty(query, true, "presence", "string", ["optional", "mandatory", "forbidden"], query.name !== undefined ? "\t\t\tquery : " + query.name + " : " : "query : ")
+                if (good && query.presence !== "forbidden") {
+                    good &= this.checkProperty(query, true, "check_value", "string", ["no", "equals", "regex"], query.name !== undefined ? "\t\t\tquery : " + query.name + " : " : "query : ")
+                    if (good && query.check_value === "equals") {
+                        good &= this.checkProperty(query, true, "value", null, null, query.name !== undefined ? "\t\t\tquery : " + query.name + " : " : "query : ")
+                    }
+                    if (good && query.check_value === "regex") {
+                        good &= this.checkProperty(query, true, "value", "string", null, query.name !== undefined ? "\t\t\tquery : " + query.name + " : " : "query : ")
+                    }
+                }
+            })
+        }
+        good &= this.checkProperty(permission, false, "headers", "array", null, "\t\t")
+        if (good && permission.hasOwnProperty("headers")) {
+            permission.headers.forEach(header => {
+                good &= this.checkProperty(header, true, "name", "string", null, header.name !== undefined ? "\t\t\theader : " + header.name + " : " : "header : ")
+                good &= this.checkProperty(header, true, "presence", "string", ["optional", "mandatory", "forbidden"], header.name !== undefined ? "\t\t\theader : " + header.name + " : " : "header : ")
+                if (good && header.presence !== "forbidden") {
+                    good &= this.checkProperty(header, true, "check_value", "string", ["no", "equals", "regex"], header.name !== undefined ? "\t\t\theader : " + header.name + " : " : "header : ")
+                    if (good && header.check_value === "equals") {
+                        good &= this.checkProperty(header, true, "value", null, null, header.name !== undefined ? "\t\t\theader : " + header.name + " : " : "header : ")
+                    }
+                    if (good && header.check_value === "regex") {
+                        good &= this.checkProperty(header, true, "value", "string", null, header.name !== undefined ? "\t\t\theader : " + header.name + " : " : "header : ")
+                    }
+                }
+            })
+        }
+        good &= this.checkProperty(permission, false, "body", "object", null, "\t\t")
+        if (good && permission.hasOwnProperty("body")) {
+            good &= this.checkProperty(permission.body, true, "presence", "string", ["optional", "mandatory", "forbidden"], "\t\t\tbody : ")
+            if (good && permission.body.presence !== "forbidden") {
+                if (this.checkProperty(permission.body, true, "id", "array", null, "\t\t\tbody : ")) {
+                    permission.body.id.forEach(condition => {
+                        good &= this.checkWebConditionFormat(condition, "\t\t\t")
+                    })
+                } else {
+                    good = false;
+                }
+                if (this.checkProperty(permission.body, true, "attributes", "array", null, "\t\t\tbody :")) {
+                    permission.body.attributes.forEach(condition => {
+                        good &= this.checkWebConditionFormat(condition, "\t\t\t")
+                    })
+                } else {
+                    good = false;
+                }
+            }
+        }
+        return (good == true)
+    }
+
+    checkWebConditionFormat(condition, tab) {
+        var good = true;
+        good &= this.checkProperty(condition, true, "name", "string", null, condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+        good &= this.checkProperty(condition, true, "presence", "string", ["optional", "mandatory", "forbidden"], condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+        if (good && condition.presence !== "forbidden") {
+            good &= this.checkProperty(condition, true, "check_type", "string", ["no", "ngsi_standard", "ngsi_custom", "json"], condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+            if (good && condition.check_type !== "no") {
+                //good &= this.checkProperty(condition, true, "type", "string", null, condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                if (condition.check_type === "ngsi_custom") {
+                    good &= this.checkProperty(condition, true, "type", "string", null, condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                    good &= this.checkProperty(condition, true, "derived", "string", ["Text", "Integer", "Float", "Boolean", "DateTime", "geo:json", "StructuredValue"], condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                }
+                if (condition.check_type === "ngsi_standard") {
+                    good &= this.checkProperty(condition, true, "type", "string", ["Text", "Integer", "Float", "Boolean", "DateTime", "geo:json", "StructuredValue"], condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                }
+                if (condition.check_type === "json") {
+                    good &= this.checkProperty(condition, true, "type", "string", ["object", "number", "string", "boolean", "array"], condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                }
+            }
+            good &= this.checkProperty(condition, true, "check_value", "string", ["no", "equals", "regex", "list"], condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+            if (good && condition.check_value !== "no") {
+                if (condition.check_value === "list") {
+                    good &= this.checkProperty(condition, true, "value", "array", null, condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                } else {
+                    good &= this.checkProperty(condition, true, "value", null, null, condition.name !== undefined ? tab + "\tcondition : " + condition.name + " : " : " : ")
+                }
+            }
+        }
+        return (good == true)
+    }
+
+
+    checkProperty(object, mandatory, property, type, value, tab) {
+        var good = true;
+        var goodtypes = [];
+        if (type !== null) {
+            if (typeof type === "object" && type.length !== undefined) {
+                goodtypes = type;
+            } else {
+                goodtypes.push(type);
+            }
+        }
+        if (object.hasOwnProperty(property)) {
+            if (type !== null) {
+                if (type === "array") {
+                    if ((typeof object[property] !== "object") || (object[property].length === undefined)) {
+                        console.log(tab + "property " + property + " is not an array");
+                        good = false;
+                    }
+                } else {
+                    if (!goodtypes.includes(typeof object[property])) {
+                        console.log(tab + "property " + property + "  is not of type " + JSON.stringify(goodtypes));
+                        good = false;
+                    }
+                }
+            }
+            if (good) {
+                if (value !== null) {
+                    if (typeof value === "object" && value.length !== undefined) {
+                        if (!value.includes(object[property])) {
+                            console.log(tab + "property " + property + " value " + object[property] + " not in  " + JSON.stringify(value));
+                            good = false;
+                        }
+                    } else if (object[property] !== value) {
+                        console.log(tab + "property " + property + " value " + object[property] + " different of " + value);
+                        good = false;
+                    }
+                }
+            }
+        } else {
+            if (mandatory) {
+                console.log(tab + "property " + property + " missing");
+                good = false;
+            }
+        }
+        return good;
     }
 
     dump() {

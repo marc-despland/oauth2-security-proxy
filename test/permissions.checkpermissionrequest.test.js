@@ -59,6 +59,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), true);
     });
 
@@ -117,6 +118,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), true);
     });
 
@@ -172,6 +174,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), true);
     });
 
@@ -226,6 +229,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), true);
     });
 
@@ -321,6 +325,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), true);
     });
     
@@ -380,6 +385,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), false);
     });
     it('Permission failed with path', () => {
@@ -438,6 +444,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), false);
     });
     it('Permission failed with header', () => {
@@ -496,6 +503,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), false);
     });
     it('Permission failed with query', () => {
@@ -554,6 +562,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), false);
     });
     it('Permission failed with body', () => {
@@ -612,6 +621,7 @@ describe('Test Permissions checkPermissionRequest', () => {
             }
         }
         permissions.loadPermission("mytest", permission);
+        assert.equal(permissions.checkPermissionFormat(permission, "mytest"), true)
         assert.equal(permissions.checkPermissionRequest(request, "mytest"), false);
     });
 });

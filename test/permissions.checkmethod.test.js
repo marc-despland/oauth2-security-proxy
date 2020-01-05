@@ -10,6 +10,7 @@ describe('Test Permissions checkMethod', () => {
         var permission = {
             method: "GET"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkMethod(request, permission), true);
     });
     it('method don\'t match', () => {
@@ -19,6 +20,7 @@ describe('Test Permissions checkMethod', () => {
         var permission = {
             method: "POST"
         }
+        assert.equal(permissions.checkPermissionRequestFormat(permission), true);
         assert.equal(permissions.checkMethod(request, permission), false);
     });
 });
