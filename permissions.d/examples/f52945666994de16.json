@@ -1,0 +1,54 @@
+{
+    "name": "",
+    "permission": "f52945666994de16",
+    "request": {
+        "method": "GET",
+        "path": {
+            "is_regex": true,
+            "value": "^$"
+        },
+        "querys": [
+            {
+                "presence": "mandatory",
+                "name": "",
+                "check_value": "equals",
+                "value": ""
+            }
+        ],
+        "headers": [
+            {
+                "presence": "mandatory",
+                "name": "",
+                "check_value": "equals",
+                "value": ""
+            }
+        ],
+        "body": {
+            "presence": "mandatory",
+            "json": {
+                "id": [
+                    {
+                        "name": "",
+                        "presence": "mandatory",
+                        "check_type": "ngsi_custom",
+                        "type": "",
+                        "derived": "Text",
+                        "check_value": "equals",
+                        "value": ""
+                    }
+                ],
+                "attributes": [
+                    {
+                        "name": "",
+                        "presence": "mandatory",
+                        "check_type": "ngsi_custom",
+                        "type": "",
+                        "derived": "Text",
+                        "check_value": "equals",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    }
+}
