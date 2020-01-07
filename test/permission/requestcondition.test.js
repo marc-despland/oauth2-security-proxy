@@ -26,18 +26,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.not.throw()
@@ -66,18 +68,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.not.throw()
@@ -102,18 +106,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.not.throw()
@@ -138,18 +144,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.not.throw()
@@ -173,18 +181,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.not.throw()
@@ -238,18 +248,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 2);
@@ -273,18 +285,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 3);
@@ -306,18 +320,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 2);
@@ -337,18 +353,20 @@ describe('Test RequestCondition', () => {
             headers: true,
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 1);
@@ -369,18 +387,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 1);
@@ -424,18 +444,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 5);
@@ -458,18 +480,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 5);
@@ -493,18 +517,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: "mandatory",
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 2);
@@ -528,18 +554,20 @@ describe('Test RequestCondition', () => {
             }],
             body: {
                 presence: 12,
-                id: [{
-                    name: "id",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }],
-                attributes: [{
-                    name: "type",
-                    presence: "mandatory",
-                    check_type: "no",
-                    check_value: "no"
-                }]
+                json: {
+                    id: [{
+                        name: "id",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }],
+                    attributes: [{
+                        name: "type",
+                        presence: "mandatory",
+                        check_type: "no",
+                        check_value: "no"
+                    }]
+                }
             }
         }
         expect(() => requestCondition.load(request, context)).to.throw(FormatException).with.property('code', 2);

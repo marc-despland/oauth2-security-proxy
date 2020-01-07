@@ -5,28 +5,40 @@
         "headers": [
             {
                 "name": "Fiware-Service",
-                "mandatory": true,
+                "presence": "mandatory",
                 "value": "TEST",
-                "is_regex": false
+                "check_value": "equals"
             }
         ],
-        "query": [],
         "method": "GET",
         "path": {
             "value": "^/v2/.*",
             "is_regex": true
         },
         "body": {
-            "is_mandatory": true,
-            "attributes":[{
-                "name": "id",
-                "is_mandatory" : true,
-                "check_type": true,
-                "type" : "Integer",
-                "check_value": true,
-                "value": "monid",
-                "is_regex": true 
-            }]
+            "presence": "mandatory",
+            "json": {
+                "id": [
+                    {
+                        "name": "id",
+                        "presence": "mandatory",
+                        "check_type": "ngsi_standard",
+                        "type": "Integer",
+                        "check_value": "regex",
+                        "value": "monid"
+                    }
+                ],
+                "attributes": [
+                    {
+                        "name": "type",
+                        "presence": "mandatory",
+                        "check_type": "ngsi_standard",
+                        "type": "Integer",
+                        "check_value": "regex",
+                        "value": "monid"
+                    }
+                ]
+            }
         }
     }
 }

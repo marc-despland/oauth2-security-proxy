@@ -2,6 +2,7 @@
 const fs = require('fs');
 var crypto = require('crypto');
 
+var Permission= require('./lib/permission/permission.js')
 function genRandomString(length) {
     return crypto.randomBytes(Math.ceil(length / 2))
         .toString('hex') /** convert to hexadecimal format */
@@ -24,7 +25,7 @@ const argv = require('yargs')
 
 var id=genRandomString(16);
 
-var permission= {
+/*var permission= {
     permission : id,
     name: argv.name!==undefined ? argv.name: "",
     request: {
@@ -79,7 +80,9 @@ var permission= {
             }]
         }
     }
-}
+}*/
+var permission=Permission.skeleton();
+permission.permission=id;
 
 var path=argv.folder===undefined ? id+".json" : argv.folder+"/"+id+".json";
 try {

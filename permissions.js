@@ -1,6 +1,9 @@
 'use strict';
 const fs = require('fs');
 var Roles = require('./roles.js');
+var ContextCheckFormat = require('./lib/permission/contextcheckformat.js')
+var FormatException = require('./lib/permission/formatexception.js')
+var Permission = require('./lib/permission/permission.js')
 
 var debug = false;
 
@@ -19,9 +22,49 @@ module.exports = class Permissions {
     constructor(folder, roles) {
         this.permissions = {};
         this.roles = roles;
-        if (folder !== null) this.readFolder(folder)
-
     }
+
+    load(folder) {
+        try {
+            this.readFolder(folder);
+            return true;
+        } catch (formatException) {
+            console.log("Invalid permission format : "+formatException.code)
+            console.log(formatException.prefix+formatException.message)
+            return false;
+        }
+    }
+    readFolder(folder) {
+        var option = {
+            withFileTypes: true
+        }
+        var files = fs.readdirSync(folder, option);
+        if (debug) console.log("Files : " + JSON.stringify(files, null, 4))
+        files.forEach(file => {
+            if (file.isDirectory()) {
+                if (file.name !== "." && file.name !== "..") {
+                    this.readFolder(folder + "/" + file.name);
+                }
+            } else if (file.isFile() && file.name.endsWith(".json")) {
+                this.readPermissionFile(folder + "/" + file.name);
+            }
+        })
+    }
+
+    readPermissionFile(file) {
+        try {
+            let rawdata = fs.readFileSync(file);
+            var permission = JSON.parse(rawdata);
+        } catch (exceptio) {
+            if (debug) console.log("Failed to load permission from file " + file);
+            throw new FormatException(6, "", "Failed to load permission from file " + file);
+        }
+        var context = new ContextCheckFormat();
+        var perm=new Permission();
+        perm.load(permission, context)
+        this.permissions[perm.permission]=perm;
+    }
+
 
     loadPermission(permid, permission) {
         this.permissions[permid] = permission;
@@ -325,34 +368,6 @@ module.exports = class Permissions {
         return false;
     }
 
-    readFolder(folder) {
-        var option = {
-            withFileTypes: true
-        }
-        var files = fs.readdirSync(folder, option);
-        if (debug) console.log("Files : " + JSON.stringify(files, null, 4))
-        files.forEach(file => {
-            if (file.isDirectory()) {
-                if (file.name !== "." && file.name !== "..") {
-                    this.readFolder(folder + "/" + file.name);
-                }
-            } else if (file.isFile() && file.name.endsWith(".json")) {
-                this.readPermissionFile(folder + "/" + file.name);
-            }
-        })
-    }
-
-    readPermissionFile(file) {
-        try {
-            let rawdata = fs.readFileSync(file);
-            var permission = JSON.parse(rawdata);
-            if (permission.hasOwnProperty("permission")) {
-                this.permissions[permission.permission] = permission;
-            }
-        } catch (exceptio) {
-            console.log("Failed to load permission from file " + file);
-        }
-    }
 
 
     checkPermissionFormat(permission, permid) {

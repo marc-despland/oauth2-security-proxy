@@ -49,12 +49,24 @@ describe('Test BodyCondition', () => {
         }
         expect(() => body.load(permission.body, context)).to.throw(FormatException).with.property('code', 3);
     });
+    it('load : permission body json not an object', () => {
+        var body = new BodyCondition();
+        var permission = {
+            body: {
+                presence: "mandatory",
+                json: 42
+            }
+        }
+        expect(() => body.load(permission.body, context)).to.throw(FormatException).with.property('code', 2);
+    });
+
 
     it('load : permission body not forbidden two attributes passed', () => {
         var body = new BodyCondition();
         var permission = {
             body: {
                 presence: "mandatory",
+                json: {
                 id: [{
                     name: "id",
                     presence: "mandatory",
@@ -71,9 +83,62 @@ describe('Test BodyCondition', () => {
                     check_value: "no"
                 }]
             }
+            }
         }
         expect(() => body.load(permission.body, context)).to.not.throw()
-        assert.equal(body.jsonobjectcondition.id.length, 1)
-        assert.equal(body.jsonobjectcondition.attributes.length, 2)
+        assert.equal(body.json.id.length, 1)
+        assert.equal(body.json.attributes.length, 2)
+    });
+    it('load : permission body not forbidden two attributes passed invalid attributes', () => {
+        var body = new BodyCondition();
+        var permission = {
+            body: {
+                presence: "mandatory",
+                json: {
+                id: [{
+                    name: "id",
+                    presence: "mandatory",
+                    check_type: "no",
+                    check_value: "no"
+                }],
+                attributes: [{
+                    name: "test",
+                    presence: "forbidden"
+                }, {
+                    name: "hello",
+                    presence: "mandatory",
+                    check_type: "no",
+                    check_value: 42
+                }]
+            }
+            }
+        }
+        expect(() => body.load(permission.body, context)).to.throw(FormatException).with.property('code', 2);
+    });
+    it('load : permission body not forbidden two attributes passed invalid id', () => {
+        var body = new BodyCondition();
+        var permission = {
+            body: {
+                presence: "mandatory",
+                json: {
+                id: [{
+                    name: "id",
+                    presence: "mandatory",
+                    check_type: "no",
+                    check_value: 42
+                }],
+                attributes: [{
+                    name: "test",
+                    presence: "forbidden"
+                }, {
+                    name: "hello",
+                    presence: "mandatory",
+                    check_type: "no",
+                    check_value: "no"
+                }]
+            }
+            }
+        }
+        expect(() => body.load(permission.body, context)).to.throw(FormatException).with.property('code', 2);
     });
 });

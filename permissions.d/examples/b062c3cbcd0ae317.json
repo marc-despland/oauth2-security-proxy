@@ -5,17 +5,15 @@
         "headers": [
             {
                 "name": "Fiware-Service",
-                "mandatory": true,
+                "presence": "mandatory",
                 "value": "TEST",
-                "is_regex": false
+                "check_value": "equals"
             }
         ],
-        "query": [],
         "method": "GET",
         "path": {
             "value": "/v2/types",
             "is_regex": false
-        },
-        "body": {}
+        }
     }
 }

@@ -20,15 +20,6 @@ var oauth2 = express();
 oauth2.use(cors());
 oauth2.use(bodyParser.json());
 
-
-var roles = new Roles(roles_folder);
-if (debug) roles.dump();
-var permissions = new Permissions(permissions_folder, roles);
-if (debug) permissions.dump();
-
-
-
-
 oauth2.all('*', intercept);
 
 async function intercept(req, res) {
@@ -140,10 +131,12 @@ async function requestAuthorize(token) {
     }
 }
 
+var roles = new Roles(roles_folder);
+if (debug) roles.dump();
+var permissions = new Permissions(roles);
 
-var good = true;
-good &= permission.checkPermissionsFormat();
-if (good) {
+if (permissions.load(permissions_folder)) {
+    if (debug) permissions.dump();
     oauth2.listen(port, host, function () {
         console.log("Listening on " + host + ", port " + port);
     });
