@@ -313,7 +313,7 @@ describe('Test PropertyCondition', () => {
             var condition = {
                 name: "field",
                 presence: "mandatory",
-                check_type:"no",
+                check_type: "no",
                 check_value: "no"
             }
             expect(() => property.load(condition, context)).to.not.throw()
@@ -327,7 +327,7 @@ describe('Test PropertyCondition', () => {
             var condition = {
                 name: "field",
                 presence: "mandatory",
-                check_type:"no",
+                check_type: "no",
                 check_value: "no"
             }
             expect(() => property.load(condition, context)).to.not.throw()
@@ -341,7 +341,7 @@ describe('Test PropertyCondition', () => {
             var condition = {
                 name: "field",
                 presence: "optional",
-                check_type:"no",
+                check_type: "no",
                 check_value: "no"
             }
             expect(() => property.load(condition, context)).to.not.throw()
@@ -355,7 +355,7 @@ describe('Test PropertyCondition', () => {
             var condition = {
                 name: "field",
                 presence: "optional",
-                check_type:"no",
+                check_type: "no",
                 check_value: "no"
             }
             expect(() => property.load(condition, context)).to.not.throw()
@@ -364,5 +364,525 @@ describe('Test PropertyCondition', () => {
             }
             assert.equal(property.check(body), true)
         });
+        it('property normalized  check_type ngsi_standard type Text', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body), true)
+        });
+        it('property normalized  check_type ngsi_standard type Text value not a string', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: 42
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property normalized  check_type ngsi_standard type Text but type is Integer', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Integer",
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property normalized  check_type ngsi_standard type Text but type is missingr', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property normalized  check_type ngsi_standard type Text but value is missing', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text"
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+
+
+        it('property normalized  check_type ngsi_custom type ENCODED derived from Text', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "ENCODED",
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body), true)
+        });
+        it('property normalized  check_type ngsi_custom type ENCODED derived from Text value not a string', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "ENCODED",
+                    value: 42
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property normalized  check_type ngsi_custom type ENCODED derived from Text but type is Integer', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Integer",
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property normalized  check_type ngsi_custom type ENCODED derived from Text but type is missingr', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property normalized  check_type ngsi_custom type ENCODED derived from Text but value is missing', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "ENCODED"
+                }
+            }
+            assert.equal(property.check(body), false)
+        });
+
+
+        it('property keyvalue  check_type ngsi_custom type ENCODED derived from Text', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "test"
+            }
+            assert.equal(property.check(body), true)
+        });
+        it('property keyvalue  check_type ngsi_standard type Text', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "test"
+            }
+            assert.equal(property.check(body), true)
+        });
+        it('property keyvalue  check_type ngsi_custom type ENCODED derived from Text not a string', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_custom",
+                type: "ENCODED",
+                derived: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: 42
+            }
+            assert.equal(property.check(body), false)
+        });
+        it('property keyvalue  check_type ngsi_standard type Text not a string', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "ngsi_standard",
+                type: "Text",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: 42
+            }
+            assert.equal(property.check(body),false)
+        });
+        it('property keyvalue  check_type json type string', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "json",
+                type: "string",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "test"
+            }
+            assert.equal(property.check(body),true)
+        });
+        it('property keyvalue  check_type json type string not a string', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "json",
+                type: "string",
+                check_value: "no"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: 42
+            }
+            assert.equal(property.check(body),false)
+        });
+
+
+        it('property keyvalue  check_value equals ', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "equals",
+                value: 42
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: 42
+            }
+            assert.equal(property.check(body),true)
+        });
+        it('property normalized  check_value equals ', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "equals",
+                value: 42
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Integer",
+                    value: 42
+                }
+            }
+            assert.equal(property.check(body),true)
+        });
+ 
+        it('property keyvalue  check_value equals failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "equals",
+                value: 42
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: 43
+            }
+            assert.equal(property.check(body),false)
+        });
+        it('property normalized  check_value equals failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "equals",
+                value: 42
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Integer",
+                    value: 43
+                }
+            }
+            assert.equal(property.check(body),false)
+        });
+
+        
+
+        it('property keyvalue  check_value regex ', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "regex",
+                value: "^tes.*"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "test"
+            }
+            assert.equal(property.check(body),true)
+        });
+        it('property normalized  check_value regex ', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "regex",
+                value: "^tes.*"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body),true)
+        });
+
+
+        it('property keyvalue  check_value regex failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "regex",
+                value: "^tes.*"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "2test"
+            }
+            assert.equal(property.check(body),false)
+        });
+        it('property normalized  check_value regex failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "regex",
+                value: "^tes.*"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: "2test"
+                }
+            }
+            assert.equal(property.check(body),false)
+        });
+
+
+        it('property keyvalue  check_value regex value not string failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "regex",
+                value: "^tes.*"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: 42
+            }
+            assert.equal(property.check(body),false)
+        });
+        it('property normalized  check_value regex value not string failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "regex",
+                value: "^tes.*"
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: 42
+                }
+            }
+            assert.equal(property.check(body),false)
+        });
+        it('property keyvalue  check_value list ', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "list",
+                value: ["try", "test"]
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "test"
+            }
+            assert.equal(property.check(body),true)
+        });
+        it('property normalized  check_value list ', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "list",
+                value: ["try", "test"]
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: "test"
+                }
+            }
+            assert.equal(property.check(body),true)
+        });
+        it('property keyvalue  check_value list failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "list",
+                value: ["try", "test"]
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: "test2"
+            }
+            assert.equal(property.check(body),false)
+        });
+        it('property normalized  check_value list failed', () => {
+            var property = new PropertyCondition();
+            var condition = {
+                name: "field",
+                presence: "optional",
+                check_type: "no",
+                check_value: "list",
+                value: ["try", "test"]
+            }
+            expect(() => property.load(condition, context)).to.not.throw()
+            var body = {
+                field: {
+                    type: "Text",
+                    value: "test2"
+                }
+            }
+            assert.equal(property.check(body),false)
+        });
+
+
     });
 });
